@@ -39,7 +39,7 @@ json = S3PO.generate_message do |reply|
   reply.plain = "@channel: what's up, ya all?"
 end
 puts json
-# => "<!channel>: what's up, ya all?"
+# => {"type":"message","channel":"CABC123","text":"<!channel>: what's up, ya all?","id":0}
 ```
 
 See [YARD Doc](http://www.rubydoc.info/github/kenjij/s-3po) for more info.
