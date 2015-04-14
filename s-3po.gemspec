@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 's-3po'
-  s.version       = '0.1.0'
+  s.version       = '0.2.0'
   s.authors       = ['Ken J.']
   s.email         = ['kenjij@gmail.com']
   s.description   = %q{Slack message formatter gem}

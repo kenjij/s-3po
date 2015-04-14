@@ -5,11 +5,11 @@ module S3PO
 
   class Parser
 
-    def self.parse_event(event)
+    def self.parse_event(event, opts = {})
       obj = JSON.parse(event, {symbolize_names: true})
-      return Response.new(obj) if obj[:type].nil?
-      return Message.new(obj) if obj[:type] == 'message'
-      return Event.new(obj)
+      return Response.new(obj, opts) if obj[:type].nil?
+      return Message.new(obj, opts) if obj[:type] == 'message'
+      return Event.new(obj, opts)
     end
 
     def self.mentions_from_text(text)
@@ -35,10 +35,8 @@ module S3PO
       return plain
     end
 
-    def self.commands_from_text(text)
-      commands = []
-      text.scan(/<!([^>|]*)[^>]*>/) { |m| commands << m[0]}
-      return commands
+    def self.instruction_from_plain(plain)
+      plain.split()[1..-1]
     end
 
   end

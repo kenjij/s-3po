@@ -7,9 +7,10 @@ module S3PO
 
   # Parse Slack event into an S3PO Event object.
   # @param event [String] event from Slack in JSON string
+  # @param opts [Hash] options
   # @return [Object] an S3PO::Event object
-  def self.parse_event(event)
-    return Parser.parse_event(event)
+  def self.parse_event(event, opts = {})
+    return Parser.parse_event(event, opts)
   end
 
   # Generate JSON message to send to Slack.
