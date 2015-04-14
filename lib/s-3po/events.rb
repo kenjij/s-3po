@@ -45,7 +45,7 @@ module S3PO
 
     def channel=(string)
       fail 'Must be a String.' unless string.class == String
-      fail 'Invalid channel' unless /C[0-9A-Z]+/ =~ string
+      fail 'Invalid channel' unless /[CD][0-9A-Z]+/ =~ string
       object[:channel] = string
     end
 
