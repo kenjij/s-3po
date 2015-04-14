@@ -1,8 +1,8 @@
 # S-3PO
 
-[![Gem Version](https://badge.fury.io/rb/s-3po.svg)](http://badge.fury.io/rb/s-3po) [![security](https://hakiri.io/github/kenjij/s-3po/master.svg)](https://hakiri.io/github/kenjij/s-3po/master) [![Code Climate](https://codeclimate.com/github/kenjij/s-3po/badges/gpa.svg)](https://codeclimate.com/github/kenjij/s-3po)
+[![Gem Version](https://badge.fury.io/rb/s-3po.svg)](http://badge.fury.io/rb/s-3po) [![security](https://hakiri.io/github/kenjij/s-3po/master.svg)](https://hakiri.io/github/kenjij/s-3po/master) [![Code Climate](https://codeclimate.com/github/kenjij/s-3po/badges/gpa.svg)](https://codeclimate.com/github/kenjij/s-3po) [![Dependency Status](https://gemnasium.com/kenjij/s-3po.svg)](https://gemnasium.com/kenjij/s-3po)
 
-A protocol droid made by Cybot Galactica for Slack.
+A protocol droid made by [Cybot Galactica](http://starwars.wikia.com/wiki/Cybot_Galactica) for [Slack](https://slack.com).
 
 This gem parses, generates, and manupilates various Slack events and messages.
 
