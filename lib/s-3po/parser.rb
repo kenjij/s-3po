@@ -5,11 +5,11 @@ module S3PO
 
   class Parser
 
-    def self.parse_event(event)
+    def self.parse_event(event, opts = {})
       obj = JSON.parse(event, {symbolize_names: true})
-      return Response.new(obj) if obj[:type].nil?
-      return Message.new(obj) if obj[:type] == 'message'
-      return Event.new(obj)
+      return Response.new(obj, opts) if obj[:type].nil?
+      return Message.new(obj, opts) if obj[:type] == 'message'
+      return Event.new(obj, opts)
     end
 
     def self.mentions_from_text(text)
@@ -19,7 +19,7 @@ module S3PO
     end
 
     def self.plain_from_text(text)
-      # Copy
+      # copy
       plain = String.new(text)
       # remove labels within brackets
       plain.gsub!(/<([^>|]*)[^>]*>/, '<\1>')
@@ -35,10 +35,13 @@ module S3PO
       return plain
     end
 
-    def self.commands_from_text(text)
-      commands = []
-      text.scan(/<!([^>|]*)[^>]*>/) { |m| commands << m[0]}
-      return commands
+    def self.instruction_from_plain(plain, botid)
+      a = plain.split()
+      if a[0] && a[0].start_with?("@#{botid}")
+        prefix = a.shift
+      end
+      return nil if a.empty?
+      return a
     end
 
   end

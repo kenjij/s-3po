@@ -4,10 +4,12 @@ module S3PO
   class Event
 
     attr_reader :object
+    attr_reader :options
 
-    def initialize(event = {})
+    def initialize(event = {}, opts = {})
       fail 'Must be a Hash.' unless event.class == Hash
       @object = event
+      @options = opts
     end
 
     # @return [Symbol]
@@ -39,6 +41,12 @@ module S3PO
       object[:user]
     end
 
+    # Is is an IM, direct channel?
+    # @return [Boolean]
+    def is_im?
+      !object[:channel].nil? && channel.start_with?('D')
+    end
+
     def channel
       object[:channel]
     end
@@ -58,11 +66,6 @@ module S3PO
 
   # Message Event class comes from Slack, or you would create one to send a message.
   class Message < Event
-
-    def initialize(event = {})
-      event[:type] = :message
-      super(event)
-    end
 
     def text
       object[:text]
@@ -88,9 +91,24 @@ module S3PO
       @mentions ||= Parser.mentions_from_text(text)
     end
 
-    
-    def commands
-      @commands ||= Parser.commands_from_text(text)
+    # Is the message directed to me and/or prefixed with bot username?
+    # @return [Boolean]
+    def is_instruction?
+      return false unless plain
+      withprefix = /^@#{options[:botid]}[!:;,.-]*\s+\S/
+      withoutprefix = /^[^@]/
+      return true if (withprefix =~ plain) == 0
+      if is_im?
+        return true if (withoutprefix =~ plain) == 0
+      end
+      return false
+    end
+
+    # Break up the message text into an Arrary per word when prefixed with bot username; e.g., "@bot echo hello"
+    # @return [Array] excluding the prefixed bot username
+    def instruction
+      return nil unless is_instruction?
+      @instruction ||= Parser.instruction_from_plain(plain, options[:botid])
     end
 
   end
