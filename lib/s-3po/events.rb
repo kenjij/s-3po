@@ -41,6 +41,12 @@ module S3PO
       object[:user]
     end
 
+    # Is is an IM, direct channel?
+    # @return [Boolean]
+    def is_im?
+      !object[:channel].nil? && channel.start_with?('D')
+    end
+
     def channel
       object[:channel]
     end
@@ -85,10 +91,16 @@ module S3PO
       @mentions ||= Parser.mentions_from_text(text)
     end
 
-    # Is the message directed to me; prefixed with bot username?
+    # Is the message directed to me and/or prefixed with bot username?
     # @return [Boolean]
     def is_instruction?
-      return plain.start_with?("@#{options[:botid]}") if options[:botid]
+      return false unless plain
+      withprefix = /^@#{options[:botid]}[!:;,.-]*\s+\S/
+      withoutprefix = /^[^@]/
+      return true if (withprefix =~ plain) == 0
+      if is_im?
+        return true if (withoutprefix =~ plain) == 0
+      end
       return false
     end
 
@@ -96,7 +108,7 @@ module S3PO
     # @return [Array] excluding the prefixed bot username
     def instruction
       return nil unless is_instruction?
-      @instruction ||= Parser.instruction_from_plain(plain)
+      @instruction ||= Parser.instruction_from_plain(plain, options[:botid])
     end
 
   end

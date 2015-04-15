@@ -19,7 +19,7 @@ module S3PO
     end
 
     def self.plain_from_text(text)
-      # Copy
+      # copy
       plain = String.new(text)
       # remove labels within brackets
       plain.gsub!(/<([^>|]*)[^>]*>/, '<\1>')
@@ -35,8 +35,13 @@ module S3PO
       return plain
     end
 
-    def self.instruction_from_plain(plain)
-      plain.split()[1..-1]
+    def self.instruction_from_plain(plain, botid)
+      a = plain.split()
+      if a[0] && a[0].start_with?("@#{botid}")
+        prefix = a.shift
+      end
+      return nil if a.empty?
+      return a
     end
 
   end
