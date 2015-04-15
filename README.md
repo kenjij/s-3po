@@ -27,7 +27,7 @@ require 's-3po'
 Your bot would connect to Slack via [RTM API](https://api.slack.com/rtm). Then process events like this.
 
 ```ruby
-event = S3PO.parse_event(data_from_slack)
+event = S3PO.parse_event(data_from_slack, {botid: bot_id})
 puts "#{event.type} : #{event.subtype}"
 puts event.plain if event.is_simplemessage?
 # => "@U123ABC: hello you!"
