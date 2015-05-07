@@ -44,7 +44,7 @@ puts json
 # => {"type":"message","channel":"CABC123","text":"<!channel>: what's up, ya all?","id":0}
 ```
 
-See [YARD Doc](http://www.rubydoc.info/github/kenjij/s-3po) for more info.
+See [YARD Doc](http://www.rubydoc.info/gems/s-3po) for more info.
 
 ## What's Next
 
