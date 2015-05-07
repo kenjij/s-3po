@@ -25,4 +25,10 @@ module S3PO
     return Generator.generate_message(message)
   end
 
+  # Generate JSON ping to send to Slack.
+  # @return [String] JSON ready to send to Slack
+  def self.generate_ping
+    return Generator.generate_ping()
+  end
+
 end
