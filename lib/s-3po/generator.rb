@@ -5,6 +5,14 @@ module S3PO
 
   class Generator
 
+    def self.generate_ping(id = nil)
+      @id ||= 0
+      msg = {type: 'ping'}
+      msg[:id] = id ? id : @id
+      @id += 1 unless id
+      return JSON.fast_generate(msg)
+    end
+
     def self.generate_message(message, id = nil)
       @id ||= 0
       obj = message.object
