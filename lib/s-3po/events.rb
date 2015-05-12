@@ -61,6 +61,12 @@ module S3PO
       object[:ts]
     end
 
+    # Is it a hidden event?
+    # @return [Boolean]
+    def is_hidden?
+      object[:hidden] ? true : false
+    end
+
   end
 
 
@@ -78,6 +84,7 @@ module S3PO
     end
 
     def plain
+      return nil if text.nil?
       @plain ||= Parser.plain_from_text(text)
     end
 
